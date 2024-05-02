@@ -11,6 +11,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private MainMenu mainMenu;
     private GameBoard gameBoard;
     private PauseMenu pauseMenu;
+    private boolean isDarkTheme = false;
 
     public MainFrame() {
         setTitle("Quarto Game");
@@ -26,12 +27,11 @@ public class MainFrame extends JFrame implements ActionListener {
         gameBoard = new GameBoard(this);
         pauseMenu = new PauseMenu(this);
 
-        // Ajouter les interfaces au conteneur principal avec un identifiant unique
+        // Ajouter les interfaces au conteneur principal
         mainPanel.add(mainMenu, "MainMenu");
         mainPanel.add(gameBoard, "GameBoard");
         mainPanel.add(pauseMenu, "PauseMenu");
 
-        // Ajouter le panneau principal à la JFrame
         add(mainPanel);
 
         setVisible(true);
@@ -39,23 +39,56 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Gestion des actions des différents boutons
         String command = e.getActionCommand();
 
         switch (command) {
-            case "Player vs Player":
-                cardLayout.show(mainPanel, "GameBoard"); // Passer au plateau de jeu
+            case "PlayerVsPlayer":
+                cardLayout.show(mainPanel, "GameBoard");
                 break;
             case "Pause Menu":
-                cardLayout.show(mainPanel, "PauseMenu"); // Afficher le menu de pause
+                cardLayout.show(mainPanel, "PauseMenu");
                 break;
             case "Main Menu":
-                cardLayout.show(mainPanel, "MainMenu"); // Revenir au menu principal
+                cardLayout.show(mainPanel, "MainMenu");
                 break;
             case "Quit":
-                System.exit(0); // Quitter le jeu
+                System.exit(0);
                 break;
-            // Ajouter d'autres cas pour gérer d'autres boutons
+            case "DarkMode":
+                toggleTheme(); // Changer le thème
+                break;
+            // Autres actions
         }
+    }
+
+    private void toggleTheme() {
+        if (isDarkTheme) {
+            applyLightTheme(); // Applique le thème clair
+            isDarkTheme = false;
+        } else {
+            applyDarkTheme(); // Applique le thème sombre
+            isDarkTheme = true;
+        }
+
+        // Met à jour l'interface après le changement de thème
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    private void applyLightTheme() {
+        UIManager.put("Panel.background", Color.WHITE);
+        UIManager.put("Label.foreground", Color.BLACK);
+        UIManager.put("Button.background", Color.WHITE);
+        UIManager.put("Button.foreground", Color.BLACK);
+        UIManager.put("Button.border", BorderFactory.createLineBorder(Color.GRAY));
+        // Ajuster d'autres propriétés pour le thème clair
+    }
+
+    private void applyDarkTheme() {
+        UIManager.put("Panel.background", Color.DARK_GRAY);
+        UIManager.put("Label.foreground", Color.WHITE);
+        UIManager.put("Button.background", Color.DARK_GRAY);
+        UIManager.put("Button.foreground", Color.WHITE);
+        UIManager.put("Button.border", BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        // Ajuster d'autres propriétés pour le thème sombre
     }
 }

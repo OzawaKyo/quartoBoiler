@@ -26,14 +26,14 @@ public class MainMenu extends JPanel {
 
         // Création des boutons
         musicButton = ImageUtils.createButtonFromImage(musicOnImg);
-        modeButton = ImageUtils.createButtonFromImage(lightImg);
+        modeButton = ImageUtils.createButtonFromImage(darkImg);
         langButton = ImageUtils.createButtonFromImage(enImg);
         exitButton = ImageUtils.createButtonFromImage(exitImg);
         bookButton = ImageUtils.createButtonFromImage(bookImg);
 
         // Définir des action commands pour chaque bouton
         musicButton.setActionCommand("Music");
-        modeButton.setActionCommand("DarkMode");
+        modeButton.setActionCommand("DarkMode"); // Correspond à ce que "actionPerformed" attend
         langButton.setActionCommand("Language");
         exitButton.setActionCommand("Quit");
         bookButton.setActionCommand("Manual");
@@ -80,6 +80,10 @@ public class MainMenu extends JPanel {
         btnPlayerVsAI.addActionListener(actionListener);
         btnLoad.addActionListener(actionListener);
         exitButton.addActionListener(actionListener);
+        musicButton.addActionListener(actionListener);
+        langButton.addActionListener(actionListener);
+        modeButton.addActionListener(actionListener); // Ajout de l'ActionListener
+        bookButton.addActionListener(actionListener);
     }
 
     public void addNavbarActionListener(ActionListener actionListener) {
