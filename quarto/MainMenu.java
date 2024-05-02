@@ -1,6 +1,7 @@
 package quarto;
 
 import javax.swing.*;
+import quarto.utils.ImageUtils;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -8,28 +9,52 @@ public class MainMenu extends JPanel {
     private JButton btnPlayerVsPlayer;
     private JButton btnPlayerVsAI;
     private JButton btnLoad;
-    private JButton btnMusic;
-    private JButton btnDarkMode;
-    private JButton btnLanguage;
-    private JButton btnManual;
-    private JButton btnQuit;
+    private JButton musicButton, langButton, modeButton, exitButton, bookButton;
 
     public MainMenu(ActionListener actionListener) {
         setLayout(new BorderLayout());
 
-        // Navbar avec des icônes de fonctionnalités
-        JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        btnMusic = new JButton("Music");
-        btnDarkMode = new JButton("Dark Mode");
-        btnLanguage = new JButton("Language");
-        btnManual = new JButton("Manual");
-        btnQuit = new JButton("Quit");
+        // Chargement des icônes
+        ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
+        ImageIcon musicOffImg = ImageUtils.loadImage("music-off.png", 30, 30);
+        ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
+        ImageIcon lightImg = ImageUtils.loadImage("light.png", 30, 30);
+        ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
+        ImageIcon frImg = ImageUtils.loadImage("fr.png", 30, 30);
+        ImageIcon enImg = ImageUtils.loadImage("en.png", 30, 30);
+        ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
 
-        navbar.add(btnMusic);
-        navbar.add(btnDarkMode);
-        navbar.add(btnLanguage);
-        navbar.add(btnManual);
-        navbar.add(btnQuit);
+        // Création des boutons
+        musicButton = ImageUtils.createButtonFromImage(musicOnImg);
+        modeButton = ImageUtils.createButtonFromImage(lightImg);
+        langButton = ImageUtils.createButtonFromImage(enImg);
+        exitButton = ImageUtils.createButtonFromImage(exitImg);
+        bookButton = ImageUtils.createButtonFromImage(bookImg);
+
+        // Définir des action commands pour chaque bouton
+        musicButton.setActionCommand("Music");
+        modeButton.setActionCommand("DarkMode");
+        langButton.setActionCommand("Language");
+        exitButton.setActionCommand("Quit");
+        bookButton.setActionCommand("Manual");
+
+        // Navbar avec des boutons alignés différemment
+        JPanel navbar = new JPanel(new BorderLayout());
+
+        // Panneau pour les boutons alignés à gauche
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftPanel.add(musicButton);
+        leftPanel.add(modeButton);
+        leftPanel.add(langButton);
+
+        // Panneau pour les boutons alignés à droite
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightPanel.add(bookButton);
+        rightPanel.add(exitButton);
+
+        // Ajout des sous-panneaux à la navbar
+        navbar.add(leftPanel, BorderLayout.WEST);
+        navbar.add(rightPanel, BorderLayout.EAST);
 
         // Menu avec titre et boutons
         JPanel menu = new JPanel();
@@ -54,13 +79,14 @@ public class MainMenu extends JPanel {
         btnPlayerVsPlayer.addActionListener(actionListener);
         btnPlayerVsAI.addActionListener(actionListener);
         btnLoad.addActionListener(actionListener);
-        btnQuit.addActionListener(actionListener);
+        exitButton.addActionListener(actionListener);
     }
 
     public void addNavbarActionListener(ActionListener actionListener) {
-        btnMusic.addActionListener(actionListener);
-        btnDarkMode.addActionListener(actionListener);
-        btnLanguage.addActionListener(actionListener);
-        btnManual.addActionListener(actionListener);
+        musicButton.addActionListener(actionListener);
+        modeButton.addActionListener(actionListener);
+        langButton.addActionListener(actionListener);
+        bookButton.addActionListener(actionListener);
+        exitButton.addActionListener(actionListener);
     }
 }
