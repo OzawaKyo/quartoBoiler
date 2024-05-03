@@ -65,9 +65,11 @@ public class MainFrame extends JFrame implements ActionListener {
         if (isDarkTheme) {
             applyLightTheme(); // Applique le thème clair
             isDarkTheme = false;
+            System.out.println("Light theme applied");
         } else {
             applyDarkTheme(); // Applique le thème sombre
             isDarkTheme = true;
+            System.out.println("Dark theme applied");
         }
 
         // Met à jour l'interface après le changement de thème
